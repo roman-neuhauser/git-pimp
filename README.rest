@@ -1,0 +1,54 @@
+.. vim: ft=rst sts=2 sw=2 tw=77
+
+.. :Author: Roman Neuhauser
+.. :Contact: neuhauser+git-pimp@sigpipe.cz
+.. :Copyright: This document is in the public domain.
+
+.. this file is marked up using reStructuredText
+   lines beginning with ".." are reST directives
+   "foo_" or "`foo bar`_" is a link, defined at ".. _foo" or ".. _foo bar"
+   "::" introduces a literal block (usually some form of code)
+   "`foo`" is some kind of identifier
+   suspicious backslashes in the text ("`std::string`\s") are required for
+   reST to recognize the preceding character as syntax
+
+.. default-role:: strong
+.. parsed-literal::
+
+  `NAME`
+       `git-pimp` — Code review or pull requests as patch email series
+
+
+  `SYNOPSIS`
+       `git-pimp` [-n] [-o DIR] BASE HEAD
+
+  `DESCRIPTION`
+       `git-pimp` generates a series of email messages from a range of commits,
+       with a cover letter summarizing the range.  Each commit email contains
+       everything necessary to reconstruct the commit in another repository
+       (provided it has all parents of the commit in question), plus extra
+       optional information such as diffstats.
+
+       Cover letters are generated with *git-mantle(1)*, commit emails with
+       *git-format-patch(1)*, and all is sent out using *git-mailz(1)*.
+
+  `ENVIRONMENT`
+       `git-pimp` itself uses no environment variables.
+       It is, however, implemented in terms of third-party commands which
+       *do* use them.  This means `git-pimp` may be influenced by environment
+       variables used by *git(1)*, *git-mailz(1)*, *zsh(1)*, possibly others.
+
+  `DIAGNOSTICS`
+       The `git-pimp` utility exits 0 on success, and >0 if an error occurs.
+
+  `SEE ALSO`
+       *git-format-patch(1)*, *git-mailz(1)*, *git-mantle(1)*.
+
+  `AUTHORS`
+       Roman Neuhauser <neuhauser+git-pimp@sigpipe.cz>
+           https://github.com/roman-neuhauser/git-pimp/
+
+  `BUGS`
+       No doubt plentiful.  Please report them at
+           https://github.com/roman-neuhauser/git-pimp/issues
+

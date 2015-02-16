@@ -1,0 +1,7 @@
+[user]
+  email = git-pimp-tests@example.org
+  name = git-pimp test suite
+
+[pimp]
+  to = git-pimp-tests-sink@example.org
+  editor = :

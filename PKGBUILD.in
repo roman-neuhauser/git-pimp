@@ -1,0 +1,30 @@
+# Maintainer: Roman Neuhauser <neuhauser+git-pimp@sigpipe.cz>
+pkgname=git-pimp
+pkgver=__VERSION__
+pkgrel=1
+pkgdesc="Code review or pull requests as patch email series"
+arch=(any)
+url="https://github.com/roman-neuhauser/$pkgname"
+license=(MIT)
+depends=(git git-mailz git-mantle zsh)
+checkdepends=(cram git git-mailz git-mantle zsh)
+source=($pkgname-$pkgver.tar.gz)
+sha1sums=(SKIP)
+
+build() {
+  _make
+}
+
+check() {
+  _make check
+}
+
+package() {
+  _make install DESTDIR="$pkgdir/"
+}
+
+_make() {
+  cd "$srcdir/$pkgname-$pkgver"
+  make PREFIX=/usr "$@"
+}
+
