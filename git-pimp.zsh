@@ -123,19 +123,36 @@ function main # {{{
   declare cfg_editor="${$(git config --get pimp.editor):-${VISUAL:-"${EDITOR:-false}"}}"
   declare cfg_nomail=0
 
-  declare optname
-  while getopts :hno: optname; do
-    case $optname in
-    n) cfg_nomail=1 ;;
-    o) cfg_output=${OPTARG:?} ;;
-    :) usage 1 $OPTARG ;;
-    ?)
-      case $OPTARG in
-      -) usage 2 ${${(P)OPTIND}/#--/-} ;;
-      *) usage 2 $OPTARG ;;
-      esac
+  declare optname OPTIND
+  while (( $# )); do
+    case $1 in
+    --cc=*) cfg_cc=${1#--cc=}; shift; ;;
+    --cc)   cfg_cc=$2; shift 2; ;;
+
+    --to=*) cfg_to=${1#--to=}; shift; ;;
+    --to)   cfg_to=$2; shift 2; ;;
+
+    --*)
+      usage 2 ${1/#--/-}
+    ;;
+
+    -[^-]*)
+      OPTIND=1
+      while getopts :hno: optname; do
+        case $optname in
+        n) cfg_nomail=1 ;;
+        o) cfg_output=${OPTARG:?} ;;
+        :) usage 1 $OPTARG ;;
+        ?) usage 2 $OPTARG ;;
+        esac
+      done; shift $((OPTIND - 1))
+    ;;
+
+    *)
+      break
+    ;;
     esac
-  done; shift $((OPTIND - 1))
+  done
 
   if (( $# < 2 )); then
     usage 3
@@ -149,6 +166,8 @@ function main # {{{
   declare -r mantle=$outdir/.git-mantle
   declare -r cover=$outdir/0000-cover-letter.patch
   declare -r covertmp=${cover:h}/.${cover:t}.tmp
+
+  [[ -n $cfg_to ]] || complain 1 "no primary recipients (pimp.to)"
 
   {
     o mkdir -p $outdir
