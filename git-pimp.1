@@ -1,5 +1,5 @@
 .\" This document is in the public domain.
-.\" vim: fdm=marker
+.\" vim: fdm=marker cms=.\\"\ %s
 .
 .\" FRONT MATTER {{{
 .Dd Jan 20, 2015
@@ -14,6 +14,8 @@
 .\" SYNOPSIS {{{
 .Sh SYNOPSIS
 .Nm
+.Op Fl \-to Ar ADDR
+.Op Fl \-cc Ar ADDR
 .Op Fl n
 .Op Fl o Ar DIR
 .Ar BASE
@@ -23,51 +25,118 @@
 .\" DESCRIPTION {{{
 .Sh DESCRIPTION
 .Nm
-generates a series of email messages from a range of commits,
+generates a series of MIME messages from a range of commits
+denoted by
+.Li ( Ar BASE , Ar HEAD ] ,
 with a cover letter summarizing the range.
-Each commit email contains everything necessary to reconstruct
-the commit in another repository (provided it has all parents
-of the commit in question), plus extra optional information
-such as diffstats.
-.Pp
-Cover letters are generated with
-.Xr git-mantle 1 ,
-commit emails with
-.Xr git-format-patch 1 ,
-and all is sent out using
+.Nm
+lets the user edit the cover letter, then submits all messages to
 .Xr git-mailz 1 .
+.
+.Ss Options
+.Bl -tag -width "xxx"
+.It Fl \-cc Ar ADDR
+Include
+.Ar ADDR
+in the
+.Li Cc:
+header of generated messages.
+Overrides the
+.Li pimp.cc
+configuration setting.
+.It Fl n
+Exit before invoking
+.Xr git-mailz 1 .
+.It Fl o Ar DIR
+Write files to
+.Ar DIR
+instead of default
+.Ev $PWD .
+.It Fl \-to Ar ADDR
+Include
+.Ar ADDR
+in the
+.Li To:
+header of generated messages.
+Overrides the
+.Li pimp.to
+configuration setting.
+.El
+.Ss Configuration
+.Bd -literal
+[pimp]
+  to = ADDR
+  cc = ADDR
+  editor = EXE
+  output = DIR
+  subjecttag = TAG
+.Ed
+.Bl -tag -width "xxx"
+.It pimp.cc
+See
+.Fl \-cc .
+.It pimp.editor
+Run
+.Va EXE
+with all messages as arguments.
+.Nm
+aborts if this exits
+.Li >0 .
+.It pimp.output
+See
+.Fl o .
+.It pimp.subjecttag
+Prefix essage subjects with
+.Li [ Va TAG ] .
+.It pimp.to
+See
+.Fl \-to .
+.El
 .\" DESCRIPTION }}}
 .\" ENVIRONMENT {{{
 .Sh ENVIRONMENT
+.Bl -tag -width "xxx"
+.It VISUAL, EDITOR
+In the absence of a
+.Li pimp.editor
+configuration setting,
 .Nm
-itself uses no environment variables.
-It is, however, implemented in terms of third-party commands
-which
-.Em do
-use them.
-This means
+falls back to
+.Ev $VISUAL
+and if it is unset or empty,
+.Ev $EDITOR .
+.It GIT_PIMP_CHATTY, GIT_PIMP_DRYRUN
+Development and testing aids.
+.El
+.Pp
 .Nm
 may be influenced by environment variables used by
-.Xr git 1  ,
-.Xr git-mailz 1  ,
-.Xr zsh 1 ,
+the programs listed in
+.Sx SEE ALSO ,
 possibly others.
 .\" ENVIRONMENT }}}
+.\" FILES {{{
+.Sh FILES
+.Nm
+uses
+.Xr git-config 1
+to retrieve configuration settings.
+.\" FILES }}}
+.\" EXIT STATUS {{{
+.Sh EXIT STATUS
+.Ex -std
+.\" EXIT STATUS }}}
 .\" EXAMPLES {{{
 .\"Sh EXAMPLES
 .\" EXAMPLES }}}
-.\" DIAGNOSTICS {{{
-.Sh DIAGNOSTICS
-.Ex -std
-.\" DIAGNOSTICS }}}
+.\" .Sh DIAGNOSTICS
 .\" SEE ALSO {{{
 .Sh SEE ALSO
-.Bl
-.It
+.Xr git 1 ,
 .Xr git-format-patch 1 ,
 .Xr git-mailz 1 ,
-.Xr git-mantle 1 .
-.El
+.Xr git-mantle 1 ,
+.Xr zsh 1 .
 .\" SEE ALSO }}}
 .\" .Sh STANDARDS
 .\" .Sh HISTORY

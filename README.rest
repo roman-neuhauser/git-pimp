@@ -20,29 +20,73 @@
 
 
   `SYNOPSIS`
-       `git-pimp` [-n] [-o DIR] BASE HEAD
+       `git-pimp` [--to ADDR] [--cc ADDR] [-n] [-o DIR] BASE HEAD
+
 
   `DESCRIPTION`
-       `git-pimp` generates a series of email messages from a range of commits,
-       with a cover letter summarizing the range.  Each commit email contains
-       everything necessary to reconstruct the commit in another repository
-       (provided it has all parents of the commit in question), plus extra
-       optional information such as diffstats.
+       `git-pimp` generates a series of MIME messages from a range of
+       commits denoted by `(BASE, HEAD]`, with a cover letter summarizing
+       the range.  `git-pimp` lets the user edit the cover letter, then
+       submits all messages to *git-mailz(1)*.
 
-       Cover letters are generated with *git-mantle(1)*, commit emails with
-       *git-format-patch(1)*, and all is sent out using *git-mailz(1)*.
+   `Options`
+     `--cc ADDR`
+        Include `ADDR` in the `Cc:` header of generated messages.
+        Overrides the `pimp.cc` configuration value.
+
+     `-n` Exit before invoking *git-mailz(1)*.
+
+     `-o DIR`
+          Write files to `DIR` instead of default `$PWD`.
+
+     `--to ADDR`
+        Include `ADDR` in the `To:` header of generated messages.
+        Overrides the `pimp.to` configuration value.
+
+   `Configuration`
+     [pimp]
+       to = ADDR
+       cc = ADDR
+       editor = EXE
+       output = DIR
+       subjecttag = TAG
+
+     `pimp.cc`
+          See `--cc`.
+
+     `pimp.editor`
+          Run `EXE` with all messages as arguments.  `git-pimp` aborts if
+          this exits >0.
+
+     `pimp.output`
+          See `-o`.
+
+     `pimp.subjecttag`
+          Prefix essage subjects with `[TAG]`.
+
+     `pimp.to`
+          See `--to`.
 
   `ENVIRONMENT`
-       `git-pimp` itself uses no environment variables.
-       It is, however, implemented in terms of third-party commands which
-       *do* use them.  This means `git-pimp` may be influenced by environment
-       variables used by *git(1)*, *git-mailz(1)*, *zsh(1)*, possibly others.
+    `VISUAL`, `EDITOR`
+      In the absence of a `pimp.editor` configuration setting, `git-pimp`
+       falls back to `$VISUAL` and if it is unset or empty, `$EDITOR`.
 
-  `DIAGNOSTICS`
+    `GIT_PIMP_CHATTY`, `GIT_PIMP_DRYRUN`
+      Development and testing aids.
+
+    `git-pimp` may be influenced by environment variables used by
+    the programs listed in `SEE ALSO`, possibly others.
+
+  `FILES`
+    `git-pimp` uses *git-config(1)* to retrieve configuration settings.
+
+  `EXIT STATUS`
        The `git-pimp` utility exits 0 on success, and >0 if an error occurs.
 
   `SEE ALSO`
-       *git-format-patch(1)*, *git-mailz(1)*, *git-mantle(1)*.
+       *git(1)*, *git-format-patch(1)*, *git-mailz(1)*, *git-mantle(1)*,
+       *zsh(1)*.
 
   `AUTHORS`
        Roman Neuhauser <neuhauser+git-pimp@sigpipe.cz>
