@@ -6,8 +6,8 @@ export GIT_SSH=false
 export GIT_ASKPASS=false
 export GIT_CONFIG_NOSYSTEM=1
 export GIT_MAILZ_SENDMAIL=:
-export HOME="$TESTDIR"
-export XDG_CONFIG_HOME="$TESTDIR"
+export HOME="$PWD"
+export XDG_CONFIG_HOME="$PWD"
 export PATH="${TESTDIR%/*}:$PATH"
 
 function tit # {{{
@@ -42,6 +42,8 @@ function tit-commit # {{{
 
 function init-repos # {{{
 (
+  cp $TESTDIR/dot.gitconfig $PWD/.gitconfig
+
   git init -q --bare theirs
   git init -q --bare mine
   git init -q checkout
