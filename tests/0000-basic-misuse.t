@@ -17,6 +17,7 @@ setup
   $ print -f '%s\n' fancy whatever > README
   $ tit commit -m 'README'
   $ tit push up HEAD:master
+  $ tit push rn HEAD:master
 
   $ tit checkout -b hack
 
@@ -56,3 +57,14 @@ test
   git-pimp: Usage: git-pimp {-h|[options] BASE HEAD}
   git-pimp: Use "git-pimp -h" to see the full option listing.
   [1]
+
+  $ tit pimp up/master rn/master
+  fatal: 'up/master..rn/master' is an empty range
+  [1]
+
+  $ tit pimp --unlikely up/master rn/master
+  git-pimp: unknown option --unlikely
+  git-pimp: Usage: git-pimp {-h|[options] BASE HEAD}
+  git-pimp: Use "git-pimp -h" to see the full option listing.
+  [1]
+
