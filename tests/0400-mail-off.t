@@ -28,7 +28,7 @@ setup
 
   $ tit push rn HEAD:feature
 
-  $ tit config pimp.editor pimped
+  $ tit config pimp.editor :
   $ export GIT_PIMP_CHATTY='review-files%*|git%mailz%*'
   $ export GIT_PIMP_DRYRUN='review-files%*|git%mailz%*'
 
@@ -39,7 +39,7 @@ test
 
   $ tit status --porcelain
   $ tit pimp -n up/master rn/feature
-  review-files pimped ./0000-cover-letter.patch ./0001-README-fancier.patch ./0002-ignore-vim-swapfiles.patch
+  review-files : ./0000-cover-letter.patch ./0001-README-fancier.patch ./0002-ignore-vim-swapfiles.patch
   $ tit status --porcelain
   ?? 0000-cover-letter.patch
   ?? 0001-README-fancier.patch

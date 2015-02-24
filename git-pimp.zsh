@@ -168,6 +168,8 @@ function main # {{{
   declare -r covertmp=${cover:h}/.${cover:t}.tmp
 
   [[ -n $cfg_to ]] || complain 1 "no primary recipients (pimp.to)"
+  [[ -n $cfg_editor ]] || complain 1 "no text editor (pimp.editor)"
+  redir -1 /dev/null o whence $cfg_editor || complain 1 "bad text editor (pimp.editor): ${(q-)cfg_editor}"
 
   {
     o mkdir -p $outdir
