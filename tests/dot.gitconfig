@@ -4,4 +4,4 @@
 
 [pimp]
   to = git-pimp-tests-sink@example.org
-  editor = :
+  editor = false
