@@ -1,5 +1,5 @@
-happy path, explicit BASE and HEAD
-==================================
+cover-letter editor failure
+===========================
 
 setup
 *****

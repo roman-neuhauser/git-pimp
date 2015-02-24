@@ -1,5 +1,5 @@
-relatively happy path
-=====================
+unknown options, wrong operand count
+====================================
 
 setup
 *****
