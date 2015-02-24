@@ -71,8 +71,9 @@ function redir # {{{
 
 function complain # {{{
 {
-  local -r ex=$1; shift
-  print -u 2 -f "%s: error: %s\n" ${_SELF##*/} "$@"
+  local -r ex=$1 fmt=$2; shift 2
+  print -u 2 -f "%s: error: " ${_SELF##*/}
+  print -u 2 -f "$fmt\n" "$@"
   [[ $ex != - ]] && exit $ex
 } # }}}
 
