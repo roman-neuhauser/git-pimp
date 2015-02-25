@@ -64,7 +64,7 @@ test
   [1]
   $ tit status --porcelain
 
-  $ tit pimp --to git-pimp-tests-to@example.org up/master rn/feature
+  $ tit pimp -n --to git-pimp-tests-to@example.org up/master rn/feature
   $ for p in *.patch; do print "==== $p ===="; grep -E '^(Cc|To):' $p; done
   ==== 0000-cover-letter.patch ====
   To: git-pimp-tests-to@example.org
@@ -83,7 +83,7 @@ test
   [1]
 
   $ tit config pimp.to git-pimp-tests-to@example.org
-  $ tit pimp --cc git-pimp-tests-cc@example.org up/master rn/feature
+  $ tit pimp -n --cc git-pimp-tests-cc@example.org up/master rn/feature
   $ for p in *.patch; do print "==== $p ===="; grep -E '^(Cc|To):' $p; done
   ==== 0000-cover-letter.patch ====
   To: git-pimp-tests-to@example.org

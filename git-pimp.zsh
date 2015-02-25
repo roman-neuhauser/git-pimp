@@ -124,7 +124,7 @@ function main # {{{
   declare cfg_editor="${$(git config --get pimp.editor):-${VISUAL:-"${EDITOR:-false}"}}"
   declare cfg_nomail=0
 
-  declare optname OPTIND
+  declare optname OPTIND OPTARG
   while (( $# )); do
     case $1 in
     --cc=*) cfg_cc=${1#--cc=}; shift; ;;
@@ -136,7 +136,7 @@ function main # {{{
     --to=*) cfg_to=${1#--to=}; shift; ;;
     --to)   cfg_to=$2; shift 2; ;;
 
-    --*)
+    --?*)
       usage 2 ${1/#--/-}
     ;;
 
@@ -147,7 +147,12 @@ function main # {{{
         n) cfg_nomail=1 ;;
         o) cfg_output=${OPTARG:?} ;;
         :) usage 1 $OPTARG ;;
-        ?) usage 2 $OPTARG ;;
+        \?)
+          if [[ ${(P)OPTIND} == --* ]]; then
+            break
+          fi
+          usage 2 $OPTARG
+        ;;
         esac
       done; shift $((OPTIND - 1))
     ;;

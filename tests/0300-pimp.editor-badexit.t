@@ -38,7 +38,7 @@ test
 ::
 
   $ tit status --porcelain
-  $ tit pimp up/master rn/feature
+  $ tit pimp -n up/master rn/feature
   review-files false ./0000-cover-letter.patch ./0001-README-fancier.patch ./0002-ignore-vim-swapfiles.patch
   rm -f ./.0000-cover-letter.patch.tmp ./.git-mantle ./.git-pimp
   [1]
