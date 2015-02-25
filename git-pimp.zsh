@@ -66,7 +66,7 @@ function redir # {{{
     2) exec {o2}>$OPTARG ;;
     esac
   done; shift $((OPTIND - 1))
-  "$@" <&${o0} 1>&${o1} 2>&${o2}
+  o "$@" <&${o0} 1>&${o1} 2>&${o2}
 } # }}}
 
 function complain # {{{
@@ -129,6 +129,9 @@ function main # {{{
     case $1 in
     --cc=*) cfg_cc=${1#--cc=}; shift; ;;
     --cc)   cfg_cc=$2; shift 2; ;;
+
+    --output=*) cfg_output=${1#--output=}; shift; ;;
+    --output) cfg_output=$2; shift 2; ;;
 
     --to=*) cfg_to=${1#--to=}; shift; ;;
     --to)   cfg_to=$2; shift 2; ;;

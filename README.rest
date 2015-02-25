@@ -36,7 +36,7 @@
 
      `-n` Exit before invoking *git-mailz(1)*.
 
-     `-o DIR`
+     `-o DIR`, `--output DIR`
           Write files to `DIR` instead of default `$PWD`.
 
      `--to ADDR`
@@ -59,7 +59,7 @@
           this exits >0.
 
      `pimp.output`
-          See `-o`.
+          See `--output`.
 
      `pimp.subjecttag`
           Prefix essage subjects with `[TAG]`.
