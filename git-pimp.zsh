@@ -192,6 +192,7 @@ function main # {{{
     o redir -1 $series git format-patch \
         --output-directory=$outdir \
         --cover-letter \
+        --thread \
         ${cfg_to:+--to=$cfg_to} \
         ${cfg_cc:+--cc=$cfg_cc} \
         ${cfg_subtag:+--subject-prefix=$cfg_subtag} \

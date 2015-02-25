@@ -45,9 +45,13 @@ test
   ?? 0001-README-fancier.patch
   ?? 0002-ignore-vim-swapfiles.patch
 
-  $ head -5 000?-*.patch
+  $ for f in 000?-*.patch; do
+  >   print -f '==> %s <==\n' $f
+  >   sed '/^$/q' $f
+  > done
   ==> 0000-cover-letter.patch <==
   From 9536f59c85fb42b7fa26e3169f5000ba4a30d61b Mon Sep 17 00:00:00 2001
+  Message-Id: <cover.*.git.git-pimp-tests@example.org> (glob)
   From: git-pimp test suite <git-pimp-tests@example.org>
   Date: * (glob)
   Subject: [PATCH 0/2] *** SUBJECT HERE ***
@@ -55,6 +59,9 @@ test
   
   ==> 0001-README-fancier.patch <==
   From 093ac4b5e67bde2ccaf8a48201c460b77f9d6a8b Mon Sep 17 00:00:00 2001
+  Message-Id: <093ac4b5e67bde2ccaf8a48201c460b77f9d6a8b.*.git.git-pimp-tests@example.org> (glob)
+  In-Reply-To: <cover.*.git.git-pimp-tests@example.org> (glob)
+  References: <cover.*.git.git-pimp-tests@example.org> (glob)
   From: git-pimp test suite <git-pimp-tests@example.org>
   Date: Wed, 20 Aug 2014 20:57:57 +0000
   Subject: [PATCH 1/2] README fancier
@@ -62,13 +69,18 @@ test
   
   ==> 0002-ignore-vim-swapfiles.patch <==
   From 9536f59c85fb42b7fa26e3169f5000ba4a30d61b Mon Sep 17 00:00:00 2001
+  Message-Id: <9536f59c85fb42b7fa26e3169f5000ba4a30d61b.*.git.git-pimp-tests@example.org> (glob)
+  In-Reply-To: <cover.*.git.git-pimp-tests@example.org> (glob)
+  References: <cover.*.git.git-pimp-tests@example.org> (glob)
   From: git-pimp test suite <git-pimp-tests@example.org>
   Date: Wed, 20 Aug 2014 20:57:57 +0000
   Subject: [PATCH 2/2] ignore vim swapfiles
   To: git-pimp-tests-sink@example.org
+  
 
   $ cat 0000-cover-letter.patch
   From 9536f59c85fb42b7fa26e3169f5000ba4a30d61b Mon Sep 17 00:00:00 2001
+  Message-Id: <cover.*.git.git-pimp-tests@example.org> (glob)
   From: git-pimp test suite <git-pimp-tests@example.org>
   Date: * (glob)
   Subject: [PATCH 0/2] *** SUBJECT HERE ***
