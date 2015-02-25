@@ -29,7 +29,7 @@ setup
   $ tit push rn HEAD:feature
 
   $ export GIT_PIMP_DRYRUN='git%mailz%*|review-files%*'
-  $ export GIT_PIMP_CHATTY='git%format-patch%*|git%mantle%*|git%mailz%*|mv%*|rm%*'
+  $ export GIT_PIMP_CHATTY='git%format-patch%*|git%mantle%*|git%mailz%*|mv%*|rm%*|rmdir%*'
 
   $ tit config --get pimp.output
   [1]
@@ -59,23 +59,3 @@ test
   mv out2/.0000-cover-letter.patch.tmp out2/0000-cover-letter.patch
   rm -f out2/.0000-cover-letter.patch.tmp out2/.git-mantle out2/.git-pimp
 
-  $ tit pimp up/master rn/feature
-  git format-patch --output-directory=. --cover-letter --to=git-pimp-tests-sink@example.org up/master..rn/feature
-  git mantle --output ./.git-mantle up/master rn/feature
-  mv ./.0000-cover-letter.patch.tmp ./0000-cover-letter.patch
-  git mailz ./0000-cover-letter.patch ./0001-README-fancier.patch ./0002-ignore-vim-swapfiles.patch
-  rm -f ./.0000-cover-letter.patch.tmp ./.git-mantle ./.git-pimp
-
-  $ tit pimp -o out1 up/master rn/feature
-  git format-patch --output-directory=out1 --cover-letter --to=git-pimp-tests-sink@example.org up/master..rn/feature
-  git mantle --output out1/.git-mantle up/master rn/feature
-  mv out1/.0000-cover-letter.patch.tmp out1/0000-cover-letter.patch
-  git mailz out1/0000-cover-letter.patch out1/0001-README-fancier.patch out1/0002-ignore-vim-swapfiles.patch
-  rm -f out1/.0000-cover-letter.patch.tmp out1/.git-mantle out1/.git-pimp
-
-  $ tit pimp --output out2 up/master rn/feature
-  git format-patch --output-directory=out2 --cover-letter --to=git-pimp-tests-sink@example.org up/master..rn/feature
-  git mantle --output out2/.git-mantle up/master rn/feature
-  mv out2/.0000-cover-letter.patch.tmp out2/0000-cover-letter.patch
-  git mailz out2/0000-cover-letter.patch out2/0001-README-fancier.patch out2/0002-ignore-vim-swapfiles.patch
-  rm -f out2/.0000-cover-letter.patch.tmp out2/.git-mantle out2/.git-pimp

@@ -34,7 +34,7 @@
         Include `ADDR` in the `Cc:` header of generated messages.
         Overrides the `pimp.cc` configuration value.
 
-     `-n` Exit before invoking *git-mailz(1)*.
+     `-n` Exit before invoking *git-mailz(1)*, preserve generated messages.
 
      `-o DIR`, `--output DIR`
           Write files to `DIR` instead of default `$PWD`.

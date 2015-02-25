@@ -53,7 +53,7 @@ test
   [1]
   $ tit status --porcelain
 
-  $ tit pimp --cc git-pimp-tests-sink@example.org up/master rn/feature
+  $ tit pimp -n --cc git-pimp-tests-sink@example.org up/master rn/feature
   git-pimp: error: no primary recipients (pimp.to)
   [1]
   $ tit status --porcelain

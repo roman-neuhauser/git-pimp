@@ -124,6 +124,7 @@ function main # {{{
   declare cfg_editor="${$(git config --get pimp.editor):-${VISUAL:-"${EDITOR:-false}"}}"
   declare cfg_nomail=0
 
+  # argv processing {{{
   declare optname OPTIND OPTARG
   while (( $# )); do
     case $1 in
@@ -166,6 +167,7 @@ function main # {{{
   if (( $# < 2 )); then
     usage 3
   fi
+  # }}}
 
   declare -r base=$1
   declare -r head=$2
@@ -175,13 +177,17 @@ function main # {{{
   declare -r mantle=$outdir/.git-mantle
   declare -r cover=$outdir/0000-cover-letter.patch
   declare -r covertmp=${cover:h}/.${cover:t}.tmp
+  declare -i outdir_private=0
 
   [[ -n $cfg_to ]] || complain 1 "no primary recipients (pimp.to)"
   [[ -n $cfg_editor ]] || complain 1 "no text editor (pimp.editor)"
   redir -1 /dev/null o whence $cfg_editor || complain 1 "bad text editor (pimp.editor): ${(q-)cfg_editor}"
 
+  [[ -d $outdir ]] || outdir_private=1
+
+  # actual work {{{
   {
-    o mkdir -p $outdir
+    [[ -d $outdir ]] || o mkdir -p $outdir
 
     o redir -1 $series git format-patch \
         --output-directory=$outdir \
@@ -198,9 +204,15 @@ function main # {{{
     o review-files $cfg_editor $(<$series)
 
     (( cfg_nomail )) || o git mailz $(<$series)
+    (( cfg_nomail )) || o rm -f $(<$series)
   } always {
     o rm -f $covertmp $mantle $series
+
+    (( 0 == TRY_BLOCK_ERROR )) || return 1
+
+    (( 0 == outdir_private || 1 == cfg_nomail )) || o rmdir $outdir
   }
+  # }}}
 } # }}}
 
 declare -r _SELF=${0##*/}
