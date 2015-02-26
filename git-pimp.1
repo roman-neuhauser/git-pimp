@@ -77,12 +77,27 @@ configuration setting.
 See
 .Fl \-cc .
 .It pimp.editor
-Run
 .Va EXE
-with all messages as arguments.
+is run with all messages as arguments before they're handed over to
+.Xr git-mailz 1 .
+If
+.Li pimp.editor
+is empty,
 .Nm
-aborts if this exits
-.Li >0 .
+falls back to
+.Ev $VISUAL
+and
+.Ev $EDITOR ,
+in this order.
+If all three are empty,
+.Nm
+aborts.
+If
+.Va EXE
+exits
+.Li >0 ,
+.Nm
+aborts.
 .It pimp.output
 See
 .Fl \-output .
@@ -97,16 +112,11 @@ See
 .\" ENVIRONMENT {{{
 .Sh ENVIRONMENT
 .Bl -tag -width "xxx"
-.It VISUAL, EDITOR
-In the absence of a
+.It Ev EDITOR , Ev VISUAL
+Defaults for the
 .Li pimp.editor
-configuration setting,
-.Nm
-falls back to
-.Ev $VISUAL
-and if it is unset or empty,
-.Ev $EDITOR .
-.It GIT_PIMP_CHATTY, GIT_PIMP_DRYRUN
+configuration setting.
+.It Ev GIT_PIMP_CHATTY , Ev GIT_PIMP_DRYRUN
 Development and testing aids.
 .El
 .Pp

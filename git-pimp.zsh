@@ -121,7 +121,7 @@ function main # {{{
   declare cfg_subtag="$(git config --get pimp.subjecttag || :)"
   declare cfg_to="$(git config --get pimp.to || :)"
   declare cfg_cc="$(git config --get pimp.cc || :)"
-  declare cfg_editor="${$(git config --get pimp.editor):-${VISUAL:-"${EDITOR:-false}"}}"
+  declare cfg_editor="${$(git config --get pimp.editor):-${VISUAL:-"${EDITOR:-}"}}"
   declare cfg_nomail=0
 
   # argv processing {{{

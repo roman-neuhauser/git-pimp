@@ -55,8 +55,10 @@
           See `--cc`.
 
      `pimp.editor`
-          Run `EXE` with all messages as arguments.  `git-pimp` aborts if
-          this exits >0.
+          `EXE` is run with all messages as arguments before they're handed
+          over to `git-mailz`.  If `pimp.editor` is empty, `git-pimp` falls
+          back to `$VISUAL` and `$EDITOR`, in this order.  If all three are
+          empty, `git-pimp` aborts.  If `EXE` exits >0, `git-pimp` aborts.
 
      `pimp.output`
           See `--output`.
@@ -68,9 +70,8 @@
           See `--to`.
 
   `ENVIRONMENT`
-    `VISUAL`, `EDITOR`
-      In the absence of a `pimp.editor` configuration setting, `git-pimp`
-       falls back to `$VISUAL` and if it is unset or empty, `$EDITOR`.
+    `EDITOR`, `VISUAL`
+      Defaults for the `pimp.editor` configuration setting.
 
     `GIT_PIMP_CHATTY`, `GIT_PIMP_DRYRUN`
       Development and testing aids.

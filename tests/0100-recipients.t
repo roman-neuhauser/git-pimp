@@ -31,11 +31,10 @@ setup
   $ export GIT_PIMP_DRYRUN='git%mailz%*|review-files%*'
 
   $ rm $HOME/.gitconfig
-  $ git config user.email git-pimp-tests@example.org
-  $ git config user.name "git-pimp test suite"
+  $ tit config user.email git-pimp-tests@example.org
+  $ tit config user.name "git-pimp test suite"
+  $ tit config pimp.editor :
 
-  $ tit config --get pimp.editor
-  [1]
   $ tit config --get pimp.to
   [1]
   $ tit config --get pimp.cc
@@ -83,6 +82,7 @@ test
   [1]
 
   $ tit config pimp.to git-pimp-tests-to@example.org
+  $ tit config pimp.editor :
   $ tit pimp -n --cc git-pimp-tests-cc@example.org up/master rn/feature
   $ for p in *.patch; do print "==== $p ===="; grep -E '^(Cc|To):' $p; done
   ==== 0000-cover-letter.patch ====
