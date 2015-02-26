@@ -32,6 +32,9 @@ Generate an overview of changes on a branch.
 %build
 %gitpimp_make
 
+%check
+%gitpimp_make check
+
 %install
 %gitpimp_make install DESTDIR=%{buildroot}
 
