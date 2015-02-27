@@ -13,18 +13,18 @@ function usage # {{{
   test $exit -ne 0 && fd=2
   {
     if (( exit == 1 )); then
-      print -f "%s: option -%c requires an argument\n" "$self" "$1"
+      print -f "%s: option -%c requires an argument\n" -- "$self" "$1"
     elif (( exit == 2 )); then
-      print -f "%s: unknown option -%s\n" "$self" "$1"
+      print -f "%s: unknown option -%s\n" -- "$self" "$1"
     elif (( exit == 3 )); then
-      print -f "%s: missing operand\n" "$self"
+      print -f "%s: missing operand\n" -- "$self"
     fi
-    print -f "%s: Usage: %s {-h|[options] BASE HEAD}\n" "$self" "$self"
+    print -f "%s: Usage: %s {-h|[options] BASE HEAD}\n" -- "$self" "$self"
     if (( exit != 0 )); then
-      print -f "%s: Use \"%s -h\" to see the full option listing.\n" "$self" "$self"
+      print -f "%s: Use \"%s -h\" to see the full option listing.\n" -- "$self" "$self"
     else
       print -f "  Options:\n"
-      print -f "    %-16s  %s\n" \
+      print -f "    %-16s  %s\n" -- \
         "-h"              "Display this message" \
 
     fi
@@ -145,6 +145,7 @@ function main # {{{
       OPTIND=1
       while getopts :hno: optname; do
         case $optname in
+        h) usage 0 ;;
         n) cfg_nomail=1 ;;
         o) cfg_output=${OPTARG:?} ;;
         :) usage 1 $OPTARG ;;

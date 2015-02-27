@@ -68,3 +68,7 @@ test
   git-pimp: Use "git-pimp -h" to see the full option listing.
   [1]
 
+  $ tit pimp -h
+  git-pimp: Usage: git-pimp {-h|[options] BASE HEAD}
+    Options:
+      -h                Display this message
