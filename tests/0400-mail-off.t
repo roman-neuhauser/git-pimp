@@ -78,7 +78,7 @@ test
   To: git-pimp-tests-sink@example.org
   
 
-  $ sed '/^-- $/q' 0000-cover-letter.patch
+  $ sed -ne '/^-- $/q; p;' 0000-cover-letter.patch
   From 9536f59c85fb42b7fa26e3169f5000ba4a30d61b Mon Sep 17 00:00:00 2001
   Message-Id: <cover.*.git.git-pimp-tests@example.org> (glob)
   From: git-pimp test suite <git-pimp-tests@example.org>
@@ -101,4 +101,3 @@ test
   2/2 87990615 9536f59c ignore vim swapfiles
       32682119 .gitignore
   
-  -- 
