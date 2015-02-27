@@ -45,7 +45,7 @@ function o # {{{
   fi
   if (( $+GIT_PIMP_CHATTY )); then
     if [[ "${(@j,%,)@}" == $~GIT_PIMP_CHATTY ]]; then
-      print -u 2 "${(j: :)${(@q-)@}}"
+      print -u 2 "${(qj: :)@}"
     fi
   fi
   if (( $+GIT_PIMP_DRYRUN )); then
