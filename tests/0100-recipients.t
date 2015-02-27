@@ -30,10 +30,8 @@ setup
 
   $ export GIT_PIMP_DRYRUN='git%mailz%*|review-files%*'
 
-  $ rm $HOME/.gitconfig
-  $ tit config user.email git-pimp-tests@example.org
-  $ tit config user.name "git-pimp test suite"
-  $ tit config pimp.editor :
+  $ tit config --global pimp.editor :
+  $ tit config --global --unset pimp.to
 
   $ tit config --get pimp.to
   [1]
@@ -57,7 +55,7 @@ test
   [1]
   $ tit status --porcelain
 
-  $ tit config pimp.cc git-pimp-tests-cc@example.org
+  $ tit config --local pimp.cc git-pimp-tests-cc@example.org
   $ tit pimp up/master rn/feature
   git-pimp: error: no primary recipients (pimp.to)
   [1]
@@ -75,14 +73,10 @@ test
   To: git-pimp-tests-to@example.org
   Cc: git-pimp-tests-cc@example.org
 
-  $ rm .git/config
-  $ tit config --get pimp.to
-  [1]
-  $ tit config --get pimp.cc
-  [1]
+  $ tit config --local pimp.to git-pimp-tests-to@example.org
+  $ tit config --local --unset pimp.cc
+  $ tit config --local pimp.editor :
 
-  $ tit config pimp.to git-pimp-tests-to@example.org
-  $ tit config pimp.editor :
   $ tit pimp -n --cc git-pimp-tests-cc@example.org up/master rn/feature
   $ for p in *.patch; do print "==== $p ===="; grep -E '^(Cc|To):' $p; done
   ==== 0000-cover-letter.patch ====
