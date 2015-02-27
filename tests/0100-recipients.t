@@ -55,7 +55,7 @@ test
   [1]
   $ tit status --porcelain
 
-  $ tit config --local pimp.cc git-pimp-tests-cc@example.org
+  $ tit config pimp.cc git-pimp-tests-cc@example.org
   $ tit pimp up/master rn/feature
   git-pimp: error: no primary recipients (pimp.to)
   [1]
@@ -73,9 +73,9 @@ test
   To: git-pimp-tests-to@example.org
   Cc: git-pimp-tests-cc@example.org
 
-  $ tit config --local pimp.to git-pimp-tests-to@example.org
-  $ tit config --local --unset pimp.cc
-  $ tit config --local pimp.editor :
+  $ tit config pimp.to git-pimp-tests-to@example.org
+  $ tit config --unset pimp.cc
+  $ tit config pimp.editor :
 
   $ tit pimp -n --cc git-pimp-tests-cc@example.org up/master rn/feature
   $ for p in *.patch; do print "==== $p ===="; grep -E '^(Cc|To):' $p; done
