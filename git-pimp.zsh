@@ -175,7 +175,8 @@ function main # {{{
   # }}}
 
   declare -r base=$1
-  declare -r head=$2
+  declare head=$2
+  [[ $head == */* ]] || head=$(git config --get mantle.public || print .)/$head
 
   declare -r outdir=$cfg_output
   declare -r series=$outdir/.git-pimp
@@ -201,7 +202,7 @@ function main # {{{
         ${cfg_to:+--to=$cfg_to} \
         ${cfg_cc:+--cc=$cfg_cc} \
         ${cfg_subtag:+--subject-prefix=$cfg_subtag} \
-        $base..${head#./}
+        ${base#./}..${head#./}
 
     o git mantle --output $mantle $base $head
     o redir -0 $cover -1 $covertmp fixup-cover $mantle
