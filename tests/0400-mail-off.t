@@ -92,8 +92,8 @@ test
   head = 9536f59c85fb42b7fa26e3169f5000ba4a30d61b rn/feature
   base = a36dfca583a1ea1b70afebf294fe3e0cd48dfa7e up/master
   
-   .gitignore | 1 +
-   README     | 3 +--
+   .gitignore | +1 \+   (re)
+   README     | +3 \+-- (re)
    2 files changed, 2 insertions(+), 2 deletions(-)
   
   1/2 76a23b86 093ac4b5 README fancier
