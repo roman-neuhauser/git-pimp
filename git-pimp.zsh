@@ -24,8 +24,12 @@ function usage # {{{
       print -f "%s: Use \"%s -h\" to see the full option listing.\n" -- "$self" "$self"
     else
       print -f "  Options:\n"
-      print -f "    %-16s  %s\n" -- \
+      print -f "    %-20s  %s\n" -- \
         "-h"              "Display this message" \
+        "--cc ADDR"       "Include ADDR in Cc: header" \
+        "-n"              "Do not send emails, preserve files" \
+        "-o,--output DIR" "Write files to DIR" \
+        "--to ADDR"       "Include ADDR in To: header" \
 
     fi
   } >&$fd

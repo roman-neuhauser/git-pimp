@@ -71,4 +71,8 @@ test
   $ tit pimp -h
   git-pimp: Usage: git-pimp {-h|[options] BASE HEAD}
     Options:
-      -h                Display this message
+      -h                    Display this message
+      --cc ADDR             Include ADDR in Cc: header
+      -n                    Do not send emails, preserve files
+      -o,--output DIR       Write files to DIR
+      --to ADDR             Include ADDR in To: header
