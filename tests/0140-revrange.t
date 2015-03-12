@@ -1,5 +1,5 @@
-option: -o, --output
-====================
+git-format-patch and git-mantle grok their operands
+===================================================
 
 setup
 *****
