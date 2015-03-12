@@ -16,6 +16,7 @@
 .Nm
 .Op Fl \-to Ar ADDR
 .Op Fl \-cc Ar ADDR
+.Op Fl r Ar N
 .Op Fl n
 .Op Fl o Ar DIR
 .Ar BASE
@@ -48,6 +49,15 @@ configuration setting.
 Exit before invoking
 .Xr git-mailz 1 ,
 preserve generated messages.
+.It Fl r Ar N
+Mark the series as the
+.Ar N Ns -th
+reroll of the patch series.
+Generated filenames have
+.Dq Li v Ns Ar N
+prepended, and the subject tag has
+.Dq Li \ v Ns Ar N
+appended.
 .It Fl o Ar DIR , Fl \-output Ar DIR
 Write files to
 .Ar DIR

@@ -127,6 +127,7 @@ function main # {{{
   declare cfg_cc="$(git config --get pimp.cc || :)"
   declare cfg_editor="${$(git config --get pimp.editor):-${VISUAL:-"${EDITOR:-}"}}"
   declare cfg_nomail=0
+  declare cfg_reroll
 
   # argv processing {{{
   declare optname OPTIND OPTARG
@@ -147,11 +148,12 @@ function main # {{{
 
     -[^-]*)
       OPTIND=1
-      while getopts :hno: optname; do
+      while getopts :hno:r: optname; do
         case $optname in
         h) usage 0 ;;
         n) cfg_nomail=1 ;;
         o) cfg_output=${OPTARG:?} ;;
+        r) cfg_reroll=${OPTARG:?} ;;
         :) usage 1 $OPTARG ;;
         \?)
           if [[ ${(P)OPTIND} == --* ]]; then
@@ -181,7 +183,7 @@ function main # {{{
   declare -r outdir=$cfg_output
   declare -r series=$outdir/.git-pimp
   declare -r mantle=$outdir/.git-mantle
-  declare -r cover=$outdir/0000-cover-letter.patch
+  declare -r cover=$outdir/${cfg_reroll:+v$cfg_reroll-}0000-cover-letter.patch
   declare -r covertmp=${cover:h}/.${cover:t}.tmp
   declare -i outdir_private=0
 
@@ -202,6 +204,7 @@ function main # {{{
         ${cfg_to:+--to=$cfg_to} \
         ${cfg_cc:+--cc=$cfg_cc} \
         ${cfg_subtag:+--subject-prefix=$cfg_subtag} \
+        ${cfg_reroll:+--reroll-count=$cfg_reroll} \
         ${base#./}..${head#./}
 
     o git mantle --output $mantle $base $head

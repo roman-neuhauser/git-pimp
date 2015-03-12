@@ -20,7 +20,7 @@
 
 
   `SYNOPSIS`
-       `git-pimp` [--to ADDR] [--cc ADDR] [-n] [-o DIR] BASE HEAD
+       `git-pimp` [--to ADDR] [--cc ADDR] [-r N] [-n] [-o DIR] BASE HEAD
 
 
   `DESCRIPTION`
@@ -38,6 +38,11 @@
 
      `-o DIR`, `--output DIR`
           Write files to `DIR` instead of default `$PWD`.
+
+     `-r N`
+        Mark the series as the `N`-th reroll of the patch series.
+        Generated filenames have `vN` prepended, and the subject tag has
+        " vN" appended.
 
      `--to ADDR`
         Include `ADDR` in the `To:` header of generated messages.
