@@ -119,6 +119,17 @@ function review-files # {{{
   "$@"
 } # }}}
 
+function finalize-filenames # {{{
+{
+  local pfx=$1 tmp=$2 series=$3
+  while read p; do
+    declare d=${p:h}/$pfx${p:t:r}.patch
+    mv $p $d
+    print $d
+  done <$tmp >$series
+  rm $tmp
+} # }}}
+
 function main # {{{
 {
   declare cfg_output="$(git config --get pimp.output || print .)"
@@ -180,12 +191,17 @@ function main # {{{
   declare head=$2
   [[ $head == */* ]] || head=$(git config --get mantle.public || print .)/$head
 
+  declare -r vr=${cfg_reroll:+v$cfg_reroll}
   declare -r outdir=$cfg_output
   declare -r series=$outdir/.git-pimp
   declare -r mantle=$outdir/.git-mantle
-  declare -r cover=$outdir/${cfg_reroll:+v$cfg_reroll-}0000-cover-letter.patch
+  declare -r cover=$outdir/${vr:+$vr-}0000-cover-letter.patch
   declare -r covertmp=${cover:h}/.${cover:t}.tmp
   declare -i outdir_private=0
+
+  # if $cfg_reroll was given, $cfg_subtag must be set as well
+  # so that git-format-patch gets the --subject-prefix option
+  [[ -n $cfg_subtag || -z $cfg_reroll ]] || cfg_subtag=PATCH
 
   [[ -n $cfg_to ]] || complain 1 "no primary recipients (pimp.to)"
   [[ -n $cfg_editor ]] || complain 1 "no text editor (pimp.editor)"
@@ -197,15 +213,17 @@ function main # {{{
   {
     [[ -d $outdir ]] || o mkdir -p $outdir
 
-    o redir -1 $series git format-patch \
+    o redir -1 $series-git git format-patch \
         --output-directory=$outdir \
+        --suffix=.tmp \
         --cover-letter \
         --thread \
         ${cfg_to:+--to=$cfg_to} \
         ${cfg_cc:+--cc=$cfg_cc} \
-        ${cfg_subtag:+--subject-prefix=$cfg_subtag} \
-        ${cfg_reroll:+--reroll-count=$cfg_reroll} \
+        ${cfg_subtag:+--subject-prefix="$cfg_subtag${vr:+ $vr}"} \
         ${base#./}..${head#./}
+
+    o finalize-filenames "${vr:+$vr-}" $series-git $series
 
     o git mantle --output $mantle $base $head
     o redir -0 $cover -1 $covertmp fixup-cover $mantle
