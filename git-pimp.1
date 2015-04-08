@@ -49,6 +49,11 @@ configuration setting.
 Exit before invoking
 .Xr git-mailz 1 ,
 preserve generated messages.
+.It Fl o Ar DIR , Fl \-output Ar DIR
+Write files to
+.Ar DIR
+instead of default
+.Ev $PWD .
 .It Fl r Ar N
 Mark the series as the
 .Ar N Ns -th
@@ -58,11 +63,6 @@ Generated filenames have
 prepended, and the subject tag has
 .Dq Li \ v Ns Ar N
 appended.
-.It Fl o Ar DIR , Fl \-output Ar DIR
-Write files to
-.Ar DIR
-instead of default
-.Ev $PWD .
 .It Fl \-to Ar ADDR
 Include
 .Ar ADDR
