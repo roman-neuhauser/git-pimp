@@ -94,6 +94,10 @@
        *git(1)*, *git-format-patch(1)*, *git-mailz(1)*, *git-mantle(1)*,
        *zsh(1)*.
 
+  `LICENSE`
+       MIT
+           https://github.com/roman-neuhauser/git-pimp/blob/master/LICENSE
+
   `AUTHORS`
        Roman Neuhauser <neuhauser+git-pimp@sigpipe.cz>
            https://github.com/roman-neuhauser/git-pimp/
@@ -101,4 +105,3 @@
   `BUGS`
        No doubt plentiful.  Please report them at
            https://github.com/roman-neuhauser/git-pimp/issues
-
