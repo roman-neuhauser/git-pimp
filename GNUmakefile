@@ -16,7 +16,7 @@ RST2HTML       ?= $(call first_in_path,rst2html.py rst2html)
 SHELL           = $(call first_in_path,zsh)
 PATH            = /usr/bin:/bin:/usr/sbin:/sbin
 
-name =            git-pimp
+name            = git-pimp
 
 installed       = $(name).1.gz $(name)
 artifacts       = $(installed) $(html) PKGBUILD $(name).spec
