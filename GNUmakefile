@@ -19,9 +19,10 @@ PATH            = /usr/bin:/bin:/usr/sbin:/sbin
 name =            git-pimp
 
 installed       = $(name).1.gz $(name)
-artifacts       = $(installed) README.html PKGBUILD $(name).spec
+artifacts       = $(installed) $(html) PKGBUILD $(name).spec
 
 sources         = $(name).zsh
+html            = README.html INSTALL.html
 
 revname         = $(shell git describe --always --first-parent)
 
@@ -42,7 +43,7 @@ check: $(.DEFAULT_GOAL)
 	env -i CRAM="$(CRAM)" PATH="$(PATH):$$PWD/tests:$$PWD" SHELL="$(SHELL)" $(CRAMCMD) --shell=tsh tests
 
 .PHONY: html
-html: README.html
+html: $(html)
 
 .PHONY: install
 install: $(installed)
