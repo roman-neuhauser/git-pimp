@@ -56,6 +56,10 @@ test
   git format-patch * master..rn/feature (glob)
   git mantle * ./master rn/feature (glob)
 
+  $ tit pimp -n up/master ./hack
+  git format-patch * up/master..hack (glob)
+  git mantle * up/master ./hack (glob)
+
   $ tit pimp -n ./master ./hack
   git format-patch * master..hack (glob)
   git mantle * ./master ./hack (glob)
