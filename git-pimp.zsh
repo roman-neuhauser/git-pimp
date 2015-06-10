@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/zsh -f
 # vim: ts=2 sts=2 sw=2 et fdm=marker cms=\ #\ %s
 
 setopt extended_glob
@@ -45,7 +45,7 @@ function o # {{{
   fi
   if (( $+GIT_PIMP_CHATTY )); then
     if [[ "${(@j,%,)@}" == $~GIT_PIMP_CHATTY ]]; then
-      print -u 2 "${(qj: :)@}"
+      print -u $logfd "${(qj: :)@}"
     fi
   fi
   if (( $+GIT_PIMP_DRYRUN )); then
@@ -244,5 +244,7 @@ function main # {{{
 } # }}}
 
 declare -r _SELF=${0##*/}
+declare -i logfd
+exec {logfd}>&2
 
 main "$@"
