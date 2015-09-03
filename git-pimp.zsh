@@ -135,24 +135,24 @@ function main # {{{
 {
   declare cfg_output="$(git config --get pimp.output || print .)"
   declare cfg_subtag="$(git config --get pimp.subjecttag || :)"
-  declare cfg_to="$(git config --get pimp.to || :)"
-  declare cfg_cc="$(git config --get pimp.cc || :)"
   declare cfg_editor="${$(git config --get pimp.editor):-${VISUAL:-"${EDITOR:-}"}}"
   declare cfg_nomail=0
   declare cfg_reroll
+  declare -a cfg_to;
+  declare -a cfg_cc;
 
   # argv processing {{{
   declare optname OPTIND OPTARG
   while (( $# )); do
     case $1 in
-    --cc=*) cfg_cc=${1#--cc=}; shift; ;;
-    --cc)   cfg_cc=$2; shift 2; ;;
+    --cc=*) cfg_cc+=(${1#--cc=}); shift; ;;
+    --cc)   cfg_cc+=($2); shift 2; ;;
 
     --output=*) cfg_output=${1#--output=}; shift; ;;
     --output) cfg_output=$2; shift 2; ;;
 
-    --to=*) cfg_to=${1#--to=}; shift; ;;
-    --to)   cfg_to=$2; shift 2; ;;
+    --to=*) cfg_to+=(${1#--to=}); shift; ;;
+    --to)   cfg_to+=($2); shift 2; ;;
 
     --?*)
       usage 2 ${1/#--/-}
@@ -188,6 +188,9 @@ function main # {{{
   fi
   # }}}
 
+  : ${(A)cfg_to:=$(git config --get-all pimp.to || :)}
+  : ${(A)cfg_cc:=$(git config --get-all pimp.cc || :)}
+
   declare -r base=$1
   declare head=$2
   [[ $head == */* ]] || head=$(git config --get mantle.public || print .)/$head
@@ -219,8 +222,8 @@ function main # {{{
         --suffix=.tmp \
         --cover-letter \
         --thread \
-        ${cfg_to:+--to=$cfg_to} \
-        ${cfg_cc:+--cc=$cfg_cc} \
+        ${cfg_to:+--to=$^cfg_to} \
+        ${cfg_cc:+--cc=$^cfg_cc} \
         ${cfg_subtag:+--subject-prefix="$cfg_subtag${vr:+ $vr}"} \
         ${base#./}..${head#./}
 

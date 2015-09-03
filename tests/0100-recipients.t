@@ -73,6 +73,27 @@ test
   To: git-pimp-tests-to@example.org
   Cc: git-pimp-tests-cc@example.org
 
+  $ tit pimp -n \
+  > --to git-pimp-tests-to-0@example.org \
+  > --to git-pimp-tests-to-1@example.org \
+  > up/master rn/feature
+  $ for p in *.patch; do print "==== $p ===="; grep -EA1 '^(Cc|To):' $p | sed 's/^/|/'; done
+  ==== 0000-cover-letter.patch ====
+  |To: git-pimp-tests-to-0@example.org,
+  |    git-pimp-tests-to-1@example.org
+  |Cc: git-pimp-tests-cc@example.org
+  |
+  ==== 0001-README-fancier.patch ====
+  |To: git-pimp-tests-to-0@example.org,
+  |    git-pimp-tests-to-1@example.org
+  |Cc: git-pimp-tests-cc@example.org
+  |
+  ==== 0002-ignore-vim-swapfiles.patch ====
+  |To: git-pimp-tests-to-0@example.org,
+  |    git-pimp-tests-to-1@example.org
+  |Cc: git-pimp-tests-cc@example.org
+  |
+
   $ tit config pimp.to git-pimp-tests-to@example.org
   $ tit config --unset pimp.cc
   $ tit config pimp.editor :

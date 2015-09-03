@@ -21,7 +21,7 @@
 
   `SYNOPSIS`
        `git-pimp` -h | --help
-       `git-pimp` [--to ADDR] [--cc ADDR] [-r N] [-n] [-o DIR] BASE HEAD
+       `git-pimp` [--to ADDR]... [--cc ADDR]... [-r N] [-n] [-o DIR] BASE HEAD
 
 
   `DESCRIPTION`
