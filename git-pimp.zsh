@@ -122,6 +122,7 @@ function review-files # {{{
 function finalize-filenames # {{{
 {
   local pfx=$1 tmp=$2 series=$3
+  local p
   while read p; do
     declare d=${p:h}/$pfx${p:t:r}.patch
     mv $p $d
