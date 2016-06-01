@@ -70,7 +70,7 @@
           See `--output`.
 
      `pimp.subjecttag`
-          Prefix essage subjects with `[TAG]`.
+          Prefix message subjects with `[TAG]`.
 
      `pimp.to`
           See `--to`.
