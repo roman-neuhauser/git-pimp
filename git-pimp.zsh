@@ -95,10 +95,10 @@ function fixup-cover # {{{
     /^... BLURB HERE ...$/,/^-- $/ {
       /^... BLURB HERE ...$/ {
         p
-        a\
+        a\\
 
         r $mantle
-        a\
+        a\\
 
         b
       }
